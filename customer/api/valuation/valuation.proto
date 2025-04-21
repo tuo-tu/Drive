@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package api.valuation;
+
+option go_package = "customer/api/valuation;valuation";
+
+service Valuation {
+	rpc GetEstimatePrice (GetEstimatePriceReq) returns (GetEstimatePriceReply);
+}
+
+message GetEstimatePriceReq {
+	string origin = 1;
+	string destination = 2;
+}
+message GetEstimatePriceReply {
+	string origin = 1;
+	string destination = 2;
+	int64 price = 3;
+}

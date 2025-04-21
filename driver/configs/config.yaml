@@ -1,0 +1,20 @@
+server:
+  http:
+    addr: 0.0.0.0:8400
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9400
+    timeout: 1s
+data:
+  database:
+    driver: mysql
+    source: root:123456@tcp(192.168.43.144:3306)/laomadj_driver?parseTime=True&loc=Local
+  redis:
+    addr: 192.168.43.144:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+service:
+  consul:
+    address: 192.168.43.144:8500
+  jaeger:
+    url: http://192.168.43.144:14268/api/traces

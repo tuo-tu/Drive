@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api.mapService;
+
+option go_package = "valuation/api/mapService;mapService";
+
+service MapService {
+	rpc GetDrivingInfo (GetDrivingInfoReq) returns (GetDrivingReply);
+}
+
+message GetDrivingInfoReq {
+	string origin = 1;
+	string destination = 2;
+}
+message GetDrivingReply {
+	string origin = 1;
+	string destination = 2;
+	string distance = 3;
+	string duration = 4;
+}

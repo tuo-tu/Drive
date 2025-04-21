@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package api.driver;
+// 导入包
+import "google/api/annotations.proto";
+
+option go_package = "driver/api/driver;driver";
+
+service Driver {
+
+	// 校验身份证号码
+	rpc IDNoCheck (IDNoCheckReq) returns (IDNoCheckResp) {
+		option (google.api.http) = {
+			post: "/driver/idno-check",
+			body: "*",
+		};
+	}
+
+	// 获取验证码
+	rpc GetVerifyCode (GetVerifyCodeReq) returns (GetVerifyCodeResp) {
+		option (google.api.http) = {
+			get: "/driver/get-verify-code/{telephone}"
+		};
+	}
+
+	// 提交电话号码
+	rpc SubmitPhone (SubmitPhoneReq) returns (SubmitPhoneResp) {
+		option (google.api.http) = {
+			post: "/driver/submit-phone",
+			body: "*",
+		};
+	}
+
+	// 登录
+	rpc Login (LoginReq) returns (LoginResp) {
+		option (google.api.http) = {
+			post: "/driver/login",
+			body: "*",
+		};
+	}
+
+	// 退出
+	rpc Logout (LogoutReq) returns (LogoutResp) {
+		option (google.api.http) = {
+			delete: "/driver/logout",
+		};
+	}
+}
+
+// 校验身份证号码消息
+message IDNoCheckReq {
+	string name = 1;
+	string idno = 2;
+};
+message IDNoCheckResp {
+	int64 code = 1;
+	string message = 2;
+	string status = 3;
+};
+
+// 获取验证码的消息
+message GetVerifyCodeReq {
+	string telephone = 1;
+};
+
+message GetVerifyCodeResp {
+	int64 code = 1;
+	string message = 2;
+	// 验证码
+	string verify_code = 3;
+	// 生成时间 unix timestamp
+	int64 verify_code_time = 4;
+	// 有效期，单位 second
+	int32 verify_code_life = 5;
+};
+
+// 提交电话号码请求消息
+message SubmitPhoneReq {
+	string telephone = 1;
+};
+message SubmitPhoneResp {
+	int64 code = 1;
+	string message = 2;
+	string status = 3;
+};
+
+// 登录的消息
+message LoginReq {
+	string telephone = 1;
+	string verify_code = 2;
+};
+
+message LoginResp {
+	int64 code = 1;
+	string message = 2;
+	// token,登录表示，特殊的字符串，JWT 编码格式
+	string token = 3;
+	// 生成时间 unix timestamp
+	int64 token_create_at = 4;
+	// 有效期，单位 second
+	int32 token_life = 5;
+};
+
+
+message LogoutReq {
+};
+message LogoutResp {
+	int64 code = 1;
+	string message = 2;
+};
