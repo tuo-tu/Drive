@@ -11,11 +11,6 @@ import (
 	"valuation/api/mapService"
 )
 
-type PriceRule struct {
-	gorm.Model
-	PriceRuleWork
-}
-
 type PriceRuleWork struct {
 	CityID      uint  `gorm:"" json:"city_id"`
 	StartFee    int64 `gorm:"" json:"start_fee"`        // 起步费
@@ -23,6 +18,11 @@ type PriceRuleWork struct {
 	DurationFee int64 `gorm:"" json:"duration_fee"`     // 时长费
 	StartAt     int   `gorm:"type:int" json:"start_at"` // 0 [0
 	EndAt       int   `gorm:"type:int" json:"end_at"`   // 7 0)
+}
+
+type PriceRule struct {
+	gorm.Model
+	PriceRuleWork
 }
 
 // 定义操作priceRule的接口
